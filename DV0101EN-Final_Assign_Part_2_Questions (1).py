@@ -38,8 +38,9 @@ app.layout = html.Div([
         html.Label("Select Statistics:"),
         dcc.Dropdown(
             id='dropdown-statistics',
-            options=[{'label': 'Yearly Statistics', 'value': 'Yearly Statistics'},
-            {'label': 'Recession Period Statistics', 'value': 'Recession Period Statistics'}]
+            options=(
+                {'label': 'Yearly Statistics', 'value': 'Yearly Statistics'},
+                {'label': 'Recession Period Statistics', 'value': 'Recession Period Statistics'}),
             value='Select Statistics',
             placeholder='Select a report type'
         )
@@ -47,7 +48,7 @@ app.layout = html.Div([
     html.Div(dcc.Dropdown(
             id='select-year',
             options=[{'label': i, 'value': i} for i in year_list],
-            value='Select Year'
+            value='Select Year',
             placeholder='Select year'
         )),
     html.Div([#TASK 2.3: Add a division for output display
@@ -57,7 +58,7 @@ app.layout = html.Div([
 # Define the callback function to update the input container based on the selected statistics
 @app.callback(
     Output(component_id='select_year', component_property='disabled'),
-    Input(Input(component_id='dropdown-statistics',component_property='dropdown_options'))
+    Input(Input(component_id='dropdown-statistics',component_property='value'))
 
 def update_input_container(selected_statistics):
     if selected_statistics =='Yearly Statistics':
